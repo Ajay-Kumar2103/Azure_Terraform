@@ -59,7 +59,14 @@ First, we need to create principal to perform the terraform actions. Follow belo
 https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/guides/service_principal_client_secret
 ```
 
-After creating service principal, pull the below repository.
+After creating service principal, pull the below repository using git.
 ```shell
+git@github.com:Ajay-Kumar2103/Azure_Terraform.git
+```
+
+Initially, run Terraform locally to ensure it works as expected. Once verified, import the configuration into your Azure DevOps project to create a pipeline for automating the Terraform workflow. Before proceeding, ensure that the Terraform state file is stored remotely and securely to prevent accidental deletion along with other resources.
+
+
+
 
 
