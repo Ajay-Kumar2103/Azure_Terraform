@@ -68,5 +68,90 @@ Initially, run Terraform locally to ensure it works as expected. Once verified, 
 
 
 
+1. **Write & Configure Terraform Configuration**
+   
+   The terraform files has been updated in repository and use them to configure the infrastructure. After running "terraform apply" command the resources will be created in azure portal. Once everything is created then we can assume that it is working and then use "Terraform destory" to delete all the resources. 
+
+
+
+2. **Azure DevOps Pipeline Execution**
+
+   - Import the repository to Azure DevOps Organisation
+   - Create a new basic pipeline and use "azure pipeline.yaml" for building pipeline.
+   - Create a storage account, then container to save the artifacts and to use for "release pipeline".
+
+   ![image](https://github.com/user-attachments/assets/55213d3b-6f45-43a3-bb59-c94e082ca263)
+
+
+   - Save the pipeline and run it. It includes terraform install, init, validate, format, plan, archive and publish. This will help us to extract the published artifact later and in release pipeline to destroy the infrastructure.
+
+![image](https://github.com/user-attachments/assets/050c8d6d-472b-4e2f-9bb4-f6baa1c1bdc0)
+
+
+
+![image](https://github.com/user-attachments/assets/d87d6d10-30f7-4d47-945f-7d0d1e440cdc)
+
+
+
+The above image clearly shows that the pipeline ran successfully and we can proceed for next step which is "release pipeline"
+
+
+Create the release pipeline in below format.
+
+Select Release option, then create a new deployment.
+
+![image](https://github.com/user-attachments/assets/fb4fab22-8b27-4d39-8181-4fed00f7f266)
+
+![image](https://github.com/user-attachments/assets/e7868495-dd29-49ee-9eb2-7316e3d1b15e)
+
+
+![image](https://github.com/user-attachments/assets/6bf04b1b-e97b-4935-bf58-da44f1806aa0)
+
+
+![image](https://github.com/user-attachments/assets/3dbecdc5-8ffa-4d0c-86f7-a16796c48654)
+
+
+Once everything has been set, click on deploy option to deploy the it.
+
+
+
+Once Artifact has been installed and successfully extracted, it looks as follows
+
+![image](https://github.com/user-attachments/assets/00c5852a-a4ee-4293-b9d1-b4ef14043ae6)
+
+
+
+Now we can create "Destroy" stage. You can copy the deployment stage and need to make a minor change in it. Instead of terraform apply replace it with "terraform destroy"
+
+![image](https://github.com/user-attachments/assets/ed32585a-03db-4607-9a99-3e284bb54652)
+
+![image](https://github.com/user-attachments/assets/12772d58-b4de-4475-b061-ab0ccd5fa8ad)
+
+
+We need to make sure that we provide "--auto-approve" in additional comments which will eliminate the need of manual intervetion.
+
+
+Once everything is set up, we can make a change to trigger pipeline which will make to provision the enviorment and the release pipeline will be triggered. We have also made an approval section for destroying the environment so that it won't destroy accidentally.
+
+![image](https://github.com/user-attachments/assets/cd92c018-8245-406d-a526-0c915bfcd318)
+
+
+As long as we have the teraform files, we can recreate the environent as many times as possible, but the data inside them can't be restored. So we need to proceed with caution while destroying environment.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
